@@ -10,10 +10,3 @@ dotnet ef dbcontext scaffold "Server=255.255.255.255;Initial Catalog=BaseDeDatos
 Microsoft.EntityFrameWorkCore.SqlServer --context-dir .\NombreCarpetaModelos --output-dir .\NombreCarpetaModelos\Models --context DbContextNombre 
 -t Tabla1 -t Tabla2 -t Tabla3 -t Tabla4 -t Tabla5
 /Fin/
-
-
-/Inicio/ crear modelos de ciertas tablas de una base de datos entitycore
-dotnet ef dbcontext scaffold "Server=255.255.255.255;Initial Catalog=BaseDeDatosNombre;User ID=User;Password=@123;TrustServerCertificate=True;" 
-Microsoft.EntityFrameWorkCore.SqlServer --context-dir .\NombreCarpetaModelos --output-dir .\NombreCarpetaModelos\Models --context DbContextNombre 
--t Tabla1 -t Tabla2 -t Tabla3 -t Tabla4 -t Tabla5
-/Fin/

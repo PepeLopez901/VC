@@ -16,6 +16,5 @@ DECLARE @TblTemporal TABLE(Id_ INT ,ids_ NVARCHAR(MAX),Txt VARCHAR(max))
 		FROM Tabla2 T2
 
 		SELECT * from @TblTemporal
-		SELECT * from @TblTemporal
 
 
