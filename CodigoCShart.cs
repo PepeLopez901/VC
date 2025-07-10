@@ -6,6 +6,8 @@ Id = string.IsNullOrEmpty(str) ? Id : Convert.ToInt32(str);
 public class ListArray
 {
     public int Id { get; set; }
+
+    public int Id2 { get; set; }
     public string Importe { get; set; }
 }
 //For Each para recorrer un array de objetos
