@@ -8,6 +8,30 @@ public class ListArray
     public int Id { get; set; }
     public string Importe { get; set; }
 }
+
+public class Utilidades
+{
+    public static void GenerarLista()
+    {
+        List<Lists> Lista = new List<Lists>();
+
+        for (int i = Int_01; i <= (Int_02 + 1); i++)
+        {
+            Lista.Add(new Lists
+            {
+                Num = (i),
+                Text = (i).ToString()
+            });
+        }
+
+        // Moved inside the method
+        var result = new object(); // Placeholder, replace with actual result if needed
+        Utils.GetJSONList(result, Lista.ToList());
+    }
+
+}
+
+
 //For Each para recorrer un array de objetos
 List<ListArray> Array = new List<ListArray>();
 foreach (List ListArray in Array)

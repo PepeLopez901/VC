@@ -307,7 +307,6 @@ function curpValida(curp) {
 
     //Validar que coincida el dígito verificador
     function digitoVerificador(curp17) {
-        //Fuente https://consultas.curp.gob.mx/CurpSP/
         var diccionario = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
             lngSuma = 0.0,
             lngDigito = 0.0;
@@ -372,3 +371,22 @@ function validarInputRFC(input) {
     return rfcCorrecto;
     
 }
+
+$("#DivSwitch").widgetUatSwitch({
+    colorOff: "#",
+    colorOn: "#",
+    colorBoton: "#",
+    colorFocus: "#",
+    textOn: "",
+    textOff: "",
+    width: "100%",
+    onValueChanged: function (e) {
+        var Value = e.value;
+        if (Value == true) {
+            document.getElementById("col").style.display = "";
+        }
+        else {
+            document.getElementById("col").style.display = "none";
+        }
+    },
+}).widgetUatSwitch("instance");
