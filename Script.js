@@ -1,25 +1,30 @@
 // ...existing code...
-//Array simple
-var ArrayTrimGuardar = [];
-    
-ArrayTrimGuardar.push({
-    id: IdCtrl,
-    Trim: i + 1,
-    Bit_: Bit,
-});
 
-//switch simple numerico
-switch (IntId) {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    case 5:
-        break;
+function ArraySimple(){
+    //Array simple
+    var ArrayTrimGuardar = [];
+        
+    ArrayTrimGuardar.push({
+        id: IdCtrl,
+        Trim: i + 1,
+        Bit_: Bit,
+    });
+}
+
+function Switchsimple() {
+    //switch simple numerico
+    switch (IntId) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
 }
 
 //Ajax
@@ -53,44 +58,50 @@ function getBase64Image(img) {
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 //funcion 
-function Fun() {}
+function Fun() {
+    // Array Json
+    const Array = [];
+    $.each(ArrayResult, function (ind, elem) {
+        Array.push(
+        {
+            Campo1: elem.Abonado,
+            Campo2: elem.Credito,
+            Campo3: elem.Fec_Factura,
+            Campo4: elem.Folio,
+            Campo5: elem.Id_Factura,
+            Campo6: elem.Id_Fondo,
+            Campo7: elem.Id_Pasivo,
+            Campo8: elem.Id_Unidad_Ejecutora,
+            Campo9: elem.Nombre,
+        });
+    });
+}
 
-// Array Simple
-const Array = [];
-$.each(ArrayResult, function (ind, elem) {
-    Array.push(
-      {
-         Campo1: elem.Abonado,
-         Campo2: elem.Credito,
-         Campo3: elem.Fec_Factura,
-         Campo4: elem.Folio,
-         Campo5: elem.Id_Factura,
-         Campo6: elem.Id_Fondo,
-         Campo7: elem.Id_Pasivo,
-         Campo8: elem.Id_Unidad_Ejecutora,
-         Campo9: elem.Nombre,
-      });
-});
+function ArrayObjetos() {
+    //Array de objetos
+    ArrayFac = [];
+    $.each(filasSeleccionadas, function (item, elem) {
+
+    var controlId = "Div_" + elem.Id;
+    var controlValue = $("#" + controlId).dxNumberBox("instance").option("value");
+
+    ArrayFac.push(
+        {
+            Id_Factura: elem.Id,
+            Txt_Importe: controlValue,
+        });
+    });
+}
+
+function Importe() {
+
+    //Formato de moneda
+    let Importe = 123456.78;
+    let formatMX = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(Importe);
+    return formatMX;
+}
 
 
-//Array de objetos
-ArrayFac = [];
-$.each(filasSeleccionadas, function (item, elem) {
-
-   var controlId = "Div_" + elem.Id;
-   var controlValue = $("#" + controlId).dxNumberBox("instance").option("value");
-
-   ArrayFac.push(
-      {
-         Id_Factura: elem.Id,
-         Txt_Importe: controlValue,
-      });
-});
-
-
-//Formato de moneda
-let Importe = 123456.78;
-let formatMX = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(Importe);
 
 //Cambiar el DateTime de SQL a formato de fecha
 function SQLFECHA(FecSQL_Date) {
@@ -117,7 +128,7 @@ function RangoFechas(Fecha1, Fecha2, Days, ActiveDays) {
  
     $('#DivFec').dxDateBox("instance").option({ value: ActiveDay01, max: Fec2, min: Fec1, disabledDates: ArrayDias });
     //, 
- };
+}
 
  function FunDiasEntreFechas(startDate, endDate) {
     const currentDate = new Date(startDate.getTime());
@@ -149,7 +160,7 @@ function RangoFechas(Fecha1, Fecha2, Days, ActiveDays) {
        (DateNow.getFullYear()).toString().padStart(2, '0'))
     var FecNowMilSec = new Date(FecNowDate).getTime();
  
- };
+ }
 
  
 function funPick(){
@@ -159,10 +170,13 @@ function funPick(){
         .reduce((res, k) => Object.assign(res, { [k]: obj[k] }), {});
 }
 
-
-var ArrayTipoContrato = ObjListCheck.map(function (item) {
+function MapObjetos() {
+    //Mapear objetos
+    var ArrayTipoContrato = ObjListCheck.map(function (item) {
     return pick(item, ["chkActivos", "Id_Tipo_Contrato"])
-});
+    });
+}
+
 
 function getMondayOfCurrentWeek() {
     const today = new Date();
@@ -194,18 +208,18 @@ function Ajax(Id) {
     });
 }
 
-function AjaxAsync() {
+function AjaxAsync(Id) {
 
     jQuery.ajax({
        dataType: 'json',
-       data: { strId:  },
+       data: { strId: Id },
        type: 'POST',
        url: Url,
        async: false,
        success: function (res) {
           if (res.exito == true) {
-            
              if (res.result.length == 1) {
+
              }
           }
           else {
@@ -266,37 +280,45 @@ function SoloNumeros(evt) {
 //ocultar y mostrar conbtrol de devExpress
 $("#btn_").dxButton("instance").option({ visible: true });
 $("#btn_").dxButton("instance").option({ visible: false });
+
+function DistinctArray(array) {
+
+    var ArrayDistinct  = array.filter(
+        (value, index, self) => self.findIndex(obj => obj[key] === value[key]) === index
+    );
+    //string to boolean
+    (elem.Column).toLowerCase() === false
+
+    // Validar Row seleccionado
+    var ValSel = e.selectedRowKeys.length;
+    if (ValSel != null && ValSel != undefined && ValSel > 0) {
+        var Selection = e.selectedRowKeys[0].Selecionable;
+
+        if (Selection) {
+            $("#btn_").dxButton("instance").option({ visible: true });
+        } else {
+            $("#btn_").dxButton("instance").option({ visible: false });
+            e.component.clearSelection();
+        }
+    }
+}
 //Distinct
-var ArrayDistinct  = Array.filter(
-    (value, index, self) => self.findIndex(obj => obj.Id_ === value.Id_) === index
-);
-//string to boolean
-(elem.Column).toLowerCase() === false
 
-// Validar Row seleccionado
-var ValSel = e.selectedRowKeys.length;
-if (ValSel != null && ValSel != undefined && ValSel > 0) {
-   var Selection = e.selectedRowKeys[0].Selecionable;
 
-   if (Selection) {
-      $("#btn_").dxButton("instance").option({ visible: true });
-   } else {
-    $("#btn_").dxButton("instance").option({ visible: false });
-      e.component.clearSelection();
-   }
+function ValidaBotones() {
+    const botones = {
+        detalle: $("#btn_Detalle_").dxButton("instance"),
+    };
+
+    botones.detalle.option({
+        hint: "Autorizar",
+        visible: true,
+        text: "Autorizar",
+        icon: ImgAutorizarProyecto,
+        disabled: false
+    });
 }
 
-const botones = {
-    detalle: $("#btn_Detalle_").dxButton("instance"),
- };
-
-botones.detalle.option({
-    hint: "Autorizar",
-    visible: true,
-    text: "Autorizar",
-    icon: ImgAutorizarProyecto,
-    disabled: false
- });
 //Función para validar una CURP
 function curpValida(curp) {
     var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
