@@ -122,17 +122,7 @@ public class Utilidades
 
             context.Database.EnsureCreated();
             FormattableString query = $"exec sp_name @param1, @param2";
-            var result = context.Database.FromSql(query, param1, param2).asenumerable().where (x => x.Id == 1).ToList();
-            return result;
-        }
-        using (var context = new Context())
-        {
-
-            context.Database.EnsureCreated();
-            SqlParameter param1 = new SqlParameter("@param1", 1);
-            SqlParameter param2 = new SqlParameter("@param2", 2);  
-            FormattableString query = $"exec sp_name @param1={param1}, @param2={param2}";
-            var result = await context.Database.FromSqlRaw(query).asenumerable().where (x => x.Id == 1).ToList();
+            var result = context.Database.FromSql(query, param1, param2).asenumerable().where(x => x.Id == 1).ToList();
             return result;
         }
         using (var context = new Context())
@@ -141,13 +131,92 @@ public class Utilidades
             context.Database.EnsureCreated();
             SqlParameter param1 = new SqlParameter("@param1", 1);
             SqlParameter param2 = new SqlParameter("@param2", 2);
-            SqlParameter paramOutPut = new SqlParameter("@param2", SqlDbType.Decimal){Direction = ParameterDirection.Output};  
+            FormattableString query = $"exec sp_name @param1={param1}, @param2={param2}";
+            var result = await context.Database.FromSqlRaw(query).asenumerable().where(x => x.Id == 1).ToList();
+            return result;
+        }
+        using (var context = new Context())
+        {
+
+            context.Database.EnsureCreated();
+            SqlParameter param1 = new SqlParameter("@param1", 1);
+            SqlParameter param2 = new SqlParameter("@param2", 2);
+            SqlParameter paramOutPut = new SqlParameter("@param2", SqlDbType.Decimal) { Direction = ParameterDirection.Output };
             FormattableString query = $"exec sp_name @param1={param1}, @param2={param2}, @paramOutPut={paramOutPut} OUTPUT";
-            var result = context.Database.ExecuteSqlAsync(query).asenumerable().where (x => x.Id == 1).ToList();
+            var result = context.Database.ExecuteSqlAsync(query).asenumerable().where(x => x.Id == 1).ToList();
             return result;
         }
     }
 
+    // Ejemplo de cadena de conexión (NO la pongas en el código en producción)
+    // string connectionString = "Server=localhost;Database=MiBaseDatos;User Id=usuario;Password=contraseña;Encrypt=True;TrustServerCertificate=False;";
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+        optionsBuilder.UseSqlServer(connectionString);
+    }
+
+    public class ProductoService
+    {
+        // Llama a un stored procedure y retorna los productos
+        public async Task<List<Producto>> ObtenerProductosPorSPAsync()
+        {
+            using (var context = new AppDbContext())
+            {
+                // Si el SP no requiere parámetros:
+                var productos = await context.Productos
+                    .FromSqlRaw("EXEC NombreDelStoredProcedure")
+                    .ToListAsync();
+
+                // Si el SP requiere parámetros:
+                // var productos = await context.Productos
+                //     .FromSqlRaw("EXEC NombreDelStoredProcedure @param1, @param2", 
+                //         new SqlParameter("@param1", valor1),
+                //         new SqlParameter("@param2", valor2))
+                //     .ToListAsync();
+
+                return productos;
+            }
+        }
+    }
+    public class AppDbContext1 : DbContext
+    {
+        private readonly string _connectionString;
+        public AppDbContext1(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
+    }
+
+    public class AppDbContext2 : DbContext
+    {
+        private readonly string _connectionString;
+        public AppDbContext2(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("OtraConexion");
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
+    }
+
+    public void MultipleDbContexts(IConfiguration configuration)
+    {
+        using (var context1 = new AppDbContext1(configuration))
+        {
+            // Operaciones con la primera base de datos
+        }
+        using (var context2 = new AppDbContext2(configuration))
+        {
+            // Operaciones con la segunda base de datos
+        }
+    }
 }
 
 
