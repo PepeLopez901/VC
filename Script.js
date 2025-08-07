@@ -1,9 +1,9 @@
 // ...existing code...
 
-function ArraySimple(){
+function ArraySimple() {
     //Array simple
     var ArrayTrimGuardar = [];
-        
+
     ArrayTrimGuardar.push({
         id: IdCtrl,
         Trim: i + 1,
@@ -35,16 +35,16 @@ function ActualizarCierre(id) {
     $.post(ServURL, {
         id: id
     },
-    function (data) {
-        if (data.exito == true) {
-            
-        }
-        else {
-           
-        }
-    }).fail(function () {
-        
-    });
+        function (data) {
+            if (data.exito == true) {
+
+            }
+            else {
+
+            }
+        }).fail(function () {
+
+        });
 }
 
 //Obtener base64 de una imagen
@@ -63,17 +63,17 @@ function Fun() {
     const Array = [];
     $.each(ArrayResult, function (ind, elem) {
         Array.push(
-        {
-            Campo1: elem.Abonado,
-            Campo2: elem.Credito,
-            Campo3: elem.Fec_Factura,
-            Campo4: elem.Folio,
-            Campo5: elem.Id_Factura,
-            Campo6: elem.Id_Fondo,
-            Campo7: elem.Id_Pasivo,
-            Campo8: elem.Id_Unidad_Ejecutora,
-            Campo9: elem.Nombre,
-        });
+            {
+                Campo1: elem.Abonado,
+                Campo2: elem.Credito,
+                Campo3: elem.Fec_Factura,
+                Campo4: elem.Folio,
+                Campo5: elem.Id_Factura,
+                Campo6: elem.Id_Fondo,
+                Campo7: elem.Id_Pasivo,
+                Campo8: elem.Id_Unidad_Ejecutora,
+                Campo9: elem.Nombre,
+            });
     });
 }
 
@@ -82,14 +82,14 @@ function ArrayObjetos() {
     ArrayFac = [];
     $.each(filasSeleccionadas, function (item, elem) {
 
-    var controlId = "Div_" + elem.Id;
-    var controlValue = $("#" + controlId).dxNumberBox("instance").option("value");
+        var controlId = "Div_" + elem.Id;
+        var controlValue = $("#" + controlId).dxNumberBox("instance").option("value");
 
-    ArrayFac.push(
-        {
-            Id_Factura: elem.Id,
-            Txt_Importe: controlValue,
-        });
+        ArrayFac.push(
+            {
+                Id_Factura: elem.Id,
+                Txt_Importe: controlValue,
+            });
     });
 }
 
@@ -105,13 +105,13 @@ function Importe() {
 
 //Cambiar el DateTime de SQL a formato de fecha
 function SQLFECHA(FecSQL_Date) {
-   var FecSQL = new Date(parseInt(FecSQL_Date.substr(6)));
-   //var FecSQL = Date(FecSQL2).toISOString();
-   var dia = ("0" + FecSQL.getDate()).slice(-2);
-   var mes = ("0" + (FecSQL.getMonth() + 1)).slice(-2);
-   var año = FecSQL.getFullYear();
-   var datestring = dia + "/" + mes + "/" + año
-   return datestring;
+    var FecSQL = new Date(parseInt(FecSQL_Date.substr(6)));
+    //var FecSQL = Date(FecSQL2).toISOString();
+    var dia = ("0" + FecSQL.getDate()).slice(-2);
+    var mes = ("0" + (FecSQL.getMonth() + 1)).slice(-2);
+    var año = FecSQL.getFullYear();
+    var datestring = dia + "/" + mes + "/" + año
+    return datestring;
 }
 
 
@@ -119,61 +119,61 @@ function SQLFECHA(FecSQL_Date) {
 function RangoFechas(Fecha1, Fecha2, Days, ActiveDays) {
     var Fec1 = new Date(Fecha1);
     var Fec2 = new Date(Fecha2);
- 
+
     var ActiveDay01 = new Date(ActiveDays[0].Fecha)
- 
+
     let ArrayDias = Days.filter((n) => !ActiveDays.some((n2) => n.getTime() === (new Date(n2.Fecha)).getTime()));
- 
+
     console.table(ArrayDias);
- 
+
     $('#DivFec').dxDateBox("instance").option({ value: ActiveDay01, max: Fec2, min: Fec1, disabledDates: ArrayDias });
     //, 
 }
 
- function FunDiasEntreFechas(startDate, endDate) {
+function FunDiasEntreFechas(startDate, endDate) {
     const currentDate = new Date(startDate.getTime());
     const dates = [];
     while (currentDate <= endDate) {
-       dates.push((new Date(currentDate)));
-       console.log(currentDate);
-       currentDate.setDate(currentDate.getDate() + 1);
+        dates.push((new Date(currentDate)));
+        console.log(currentDate);
+        currentDate.setDate(currentDate.getDate() + 1);
     }
     return dates;
- }
+}
 
- function FechasInscFin(Str_FecInicio, Str_Fec_Fin, ) {
+function FechasInscFin(Str_FecInicio, Str_Fec_Fin,) {
     var FecInsc = new Date(Str_FecInicio);
     var FecInscDate = (((FecInsc.getMonth() + 1)).toString().padStart(2, '0') + "-" +
-       (FecInsc.getDate()).toString().padStart(2, '0') + "-" +
-       (FecInsc.getFullYear()).toString().padStart(2, '0'))
+        (FecInsc.getDate()).toString().padStart(2, '0') + "-" +
+        (FecInsc.getFullYear()).toString().padStart(2, '0'))
     var FecInscMilSec = new Date(FecInscDate).getTime();
- 
+
     var FecFin = new Date(Str_Fec_Fin);
     var FecFinDate = (((FecFin.getMonth() + 1)).toString().padStart(2, '0') + "-" +
-       (FecFin.getDate()).toString().padStart(2, '0') + "-" +
-       (FecFin.getFullYear()).toString().padStart(2, '0'))
+        (FecFin.getDate()).toString().padStart(2, '0') + "-" +
+        (FecFin.getFullYear()).toString().padStart(2, '0'))
     var FecFinMilSec = new Date(FecFinDate).getTime();
- 
+
     var DateNow = new Date();
     var FecNowDate = (((DateNow.getMonth() + 1)).toString().padStart(2, '0') + "-" +
-       (DateNow.getDate()).toString().padStart(2, '0') + "-" +
-       (DateNow.getFullYear()).toString().padStart(2, '0'))
+        (DateNow.getDate()).toString().padStart(2, '0') + "-" +
+        (DateNow.getFullYear()).toString().padStart(2, '0'))
     var FecNowMilSec = new Date(FecNowDate).getTime();
- 
- }
 
- 
-function funPick(){
-     const pick = (obj, keys) =>
-    Object.keys(obj)
-        .filter((k) => keys.includes(k))
-        .reduce((res, k) => Object.assign(res, { [k]: obj[k] }), {});
+}
+
+
+function funPick() {
+    const pick = (obj, keys) =>
+        Object.keys(obj)
+            .filter((k) => keys.includes(k))
+            .reduce((res, k) => Object.assign(res, { [k]: obj[k] }), {});
 }
 
 function MapObjetos() {
     //Mapear objetos
     var ArrayTipoContrato = ObjListCheck.map(function (item) {
-    return pick(item, ["chkActivos", "Id_Tipo_Contrato"])
+        return pick(item, ["chkActivos", "Id_Tipo_Contrato"])
     });
 }
 
@@ -188,52 +188,52 @@ function getMondayOfCurrentWeek() {
 
 function Ajax(Id) {
     jQuery.ajax({
-       dataType: 'json',
-       data: { strId: Id },
-       type: 'POST',
-       url: UrlCboFondo,
-       async: false,
-       success: function (res) {
-          if (res.exito == true) {
-             if (res.result.length == 1) {
-                
-             }
-          }
-          else {
-             
-          }
-       }
+        dataType: 'json',
+        data: { strId: Id },
+        type: 'POST',
+        url: UrlCboFondo,
+        async: false,
+        success: function (res) {
+            if (res.exito == true) {
+                if (res.result.length == 1) {
+                    fnAlertaSIF(res.message, "success", function () { })
+                }
+            }
+            else {
+                fnAlertaSIF(res.message, "exclamation", function () { })
+            }
+        }
     }).fail(function () {
-       errorPeticion(x, status, error);
+        errorPeticion(x, status, error);
     });
 }
 
 function AjaxAsync(Id) {
 
     jQuery.ajax({
-       dataType: 'json',
-       data: { strId: Id },
-       type: 'POST',
-       url: Url,
-       async: false,
-       success: function (res) {
-          if (res.exito == true) {
-             if (res.result.length == 1) {
-
-             }
-          }
-          else {
-             
-          }
-          panelCargaGenerico.hide();
-       }
+        dataType: 'json',
+        data: { strId: Id },
+        type: 'POST',
+        url: Url,
+        async: false,
+        success: function (res) {
+            if (res.exito == true) {
+                if (res.result.length == 1) {
+                    fnAlertaSIF(res.message, "success", function () { })
+                }
+            }
+            else {
+                fnAlertaSIF(res.message, "exclamation", function () { })
+            }
+            panelCargaGenerico.hide();
+        }
     }).fail(function () {
-       panelCargaGenerico.hide();
-       errorPeticion(x, status, error);
+        panelCargaGenerico.hide();
+        errorPeticion(x, status, error);
     });
 
 }
- 
+
 //<% --check all-- %>
 
 function selects() {
@@ -283,7 +283,7 @@ $("#btn_").dxButton("instance").option({ visible: false });
 
 function DistinctArray(array) {
 
-    var ArrayDistinct  = array.filter(
+    var ArrayDistinct = array.filter(
         (value, index, self) => self.findIndex(obj => obj[key] === value[key]) === index
     );
     //string to boolean
@@ -391,7 +391,7 @@ function validarInputRFC(input) {
     var rfcCorrecto = rfcValido(rfc);
 
     return rfcCorrecto;
-    
+
 }
 
 $("#DivSwitch").widgetUatSwitch({

@@ -1,6 +1,6 @@
 // ...existing code...
 //Llenar variable con un valor string y convertirlo a entero sino dejarlo null
-int? Id = null; 
+int? Id = null;
 Id = string.IsNullOrEmpty(str) ? Id : Convert.ToInt32(str);
 
 public class ListArray
@@ -217,6 +217,33 @@ public class Utilidades
             // Operaciones con la segunda base de datos
         }
     }
+
+    public ActionResult GuardaActualizaElimina(string Id_)
+    {
+        try
+        {
+            var cok = Cookie();
+            Cls sql = new Cls();
+            int Id_ = 0;
+            Id_ = string.IsNullOrEmpty(IntId) ? Id_ : Convert.ToInt32(IntId);
+
+            sql.spi(Id_);
+
+            if (sql.Mensaje == null)
+            {
+                return Json(new { exito = true, message = "" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { exito = false, message = sql.Mensaje }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        catch (Exception ex)
+        {
+            return Utils.GetJSONError(ex.Message);
+        }
+    }
+
 }
 
 
