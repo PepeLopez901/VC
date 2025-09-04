@@ -94,14 +94,11 @@ function ArrayObjetos() {
 }
 
 function Importe() {
-
     //Formato de moneda
     let Importe = 123456.78;
     let formatMX = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(Importe);
     return formatMX;
 }
-
-
 
 //Cambiar el DateTime de SQL a formato de fecha
 function SQLFECHA(FecSQL_Date) {
@@ -113,7 +110,6 @@ function SQLFECHA(FecSQL_Date) {
     var datestring = dia + "/" + mes + "/" + año
     return datestring;
 }
-
 
 //arreglo de fechas para un control de devextreme dxDateBox 
 function RangoFechas(Fecha1, Fecha2, Days, ActiveDays) {
@@ -277,6 +273,7 @@ function SoloNumeros(evt) {
         return false;
     }
 }
+
 //ocultar y mostrar conbtrol de devExpress
 $("#btn_").dxButton("instance").option({ visible: true });
 $("#btn_").dxButton("instance").option({ visible: false });
