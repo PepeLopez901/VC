@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos - MVC Python</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        h1   { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        a    { color: #2980b9; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-nuevo    { background: #27ae60; color: white; }
+        .btn-eliminar { background: #e74c3c; color: white; font-size: 13px; }
+        .categorias   { margin: 15px 0; }
+        .categorias a { margin-right: 10px; background: #ecf0f1; padding: 4px 10px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+    <h1>Catálogo de Productos</h1>
+
+    <!-- Filtros por categoría -->
+    <div class="categorias">
+        <strong>Filtrar:</strong>
+        <a href="/">Todos</a>
+        <a href="/categoria/Electrónica">Electrónica</a>
+        <a href="/categoria/Muebles">Muebles</a>
+    </div>
+
+    {% if categoria %}
+        <p>Mostrando categoría: <strong>{{ categoria }}</strong></p>
+    {% endif %}
+
+    <!-- Botón nuevo -->
+    <a href="/nuevo"><button class="btn btn-nuevo">+ Nuevo producto</button></a>
+
+    <!-- Tabla de productos -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in productos %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td><a href="/producto/{{ p.id }}">{{ p.nombre }}</a></td>
+                <td>${{ "%.2f"|format(p.precio) }}</td>
+                <td>{{ p.categoria }}</td>
+                <td>
+                    <form action="/eliminar/{{ p.id }}" method="POST" style="display:inline;">
+                        <button class="btn btn-eliminar" onclick="return confirm('¿Eliminar {{ p.nombre }}?')">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">No hay productos disponibles.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    <small>API REST disponible en: <a href="/api/productos">/api/productos</a></small>
+
+</body>
+</html>

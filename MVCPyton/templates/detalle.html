@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ producto.nombre }} - Detalle</title>
+    <style>
+        body  { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 0 20px; }
+        h1    { color: #2c3e50; }
+        .card { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-top: 20px; }
+        .campo { margin: 10px 0; }
+        .etiqueta { font-weight: bold; color: #7f8c8d; font-size: 13px; text-transform: uppercase; }
+        .valor    { font-size: 18px; margin-top: 4px; }
+        .precio   { color: #27ae60; font-size: 24px; font-weight: bold; }
+        a  { color: #2980b9; text-decoration: none; }
+        .btn-volver { display: inline-block; margin-top: 20px; padding: 8px 16px;
+                      background: #2c3e50; color: white; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <h1>Detalle del Producto</h1>
+
+    <div class="card">
+        <div class="campo">
+            <div class="etiqueta">ID</div>
+            <div class="valor">{{ producto.id }}</div>
+        </div>
+        <div class="campo">
+            <div class="etiqueta">Nombre</div>
+            <div class="valor">{{ producto.nombre }}</div>
+        </div>
+        <div class="campo">
+            <div class="etiqueta">Categoría</div>
+            <div class="valor">{{ producto.categoria }}</div>
+        </div>
+        <div class="campo">
+            <div class="etiqueta">Precio</div>
+            <div class="valor precio">${{ "%.2f"|format(producto.precio) }}</div>
+        </div>
+    </div>
+
+    <a href="/" class="btn-volver">← Volver al catálogo</a>
+
+</body>
+</html>
