@@ -36,7 +36,7 @@ public class Utilidades
         foreach (List ListArray in Array)
         {
             suma = suma + Convert.ToDecimal(ListArray.Importe);
-            ListFacturas.Add(new Generico_Type
+            Array.Add(new Generico_Type
             {
                 campo1 = (Convert.ToInt32(ListArray.Id)).ToString(),
                 campo2 = (Convert.ToDecimal(ListArray.Importe)).ToString(),

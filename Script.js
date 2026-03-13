@@ -64,15 +64,15 @@ function Fun() {
     $.each(ArrayResult, function (ind, elem) {
         Array.push(
             {
-                Campo1: elem.Abonado,
-                Campo2: elem.Credito,
-                Campo3: elem.Fec_Factura,
-                Campo4: elem.Folio,
-                Campo5: elem.Id_Factura,
-                Campo6: elem.Id_Fondo,
-                Campo7: elem.Id_Pasivo,
-                Campo8: elem.Id_Unidad_Ejecutora,
-                Campo9: elem.Nombre,
+                Campo1: elem.col_1,
+                Campo2: elem.col_2,
+                Campo3: elem.col_3,
+                Campo4: elem.col_4,
+                Campo5: elem.col_5,
+                Campo6: elem.col_6,
+                Campo7: elem.col_7,
+                Campo8: elem.col_8,
+                Campo9: elem.col_9 ,
             });
     });
 }
@@ -137,12 +137,12 @@ function FunDiasEntreFechas(startDate, endDate) {
     return dates;
 }
 
-function FechasInscFin(Str_FecInicio, Str_Fec_Fin,) {
-    var FecInsc = new Date(Str_FecInicio);
-    var FecInscDate = (((FecInsc.getMonth() + 1)).toString().padStart(2, '0') + "-" +
-        (FecInsc.getDate()).toString().padStart(2, '0') + "-" +
-        (FecInsc.getFullYear()).toString().padStart(2, '0'))
-    var FecInscMilSec = new Date(FecInscDate).getTime();
+function FechasInsFin(Str_FecInicio, Str_Fec_Fin,) {
+    var FecIns = new Date(Str_FecInicio);
+    var FecInscDate = (((FecIns.getMonth() + 1)).toString().padStart(2, '0') + "-" +
+        (FecIns.getDate()).toString().padStart(2, '0') + "-" +
+        (FecIns.getFullYear()).toString().padStart(2, '0'))
+    var FecInsMilSec = new Date(FecInscDate).getTime();
 
     var FecFin = new Date(Str_Fec_Fin);
     var FecFinDate = (((FecFin.getMonth() + 1)).toString().padStart(2, '0') + "-" +
@@ -168,8 +168,8 @@ function funPick() {
 
 function MapObjetos() {
     //Mapear objetos
-    var ArrayTipoContrato = ObjListCheck.map(function (item) {
-        return pick(item, ["chkActivos", "Id_Tipo_Contrato"])
+    var ArrayTipo = ObjListCheck.map(function (item) {
+        return pick(item, ["chkActivos", "Id_Tipo_"])
     });
 }
 
@@ -409,3 +409,49 @@ $("#DivSwitch").widgetUatSwitch({
         }
     },
 }).widgetUatSwitch("instance");
+
+function InspeccionarDatosExcel(datos) {
+   
+    if (!datos || datos.length === 0) {
+        console.warn("El arreglo está vacío o es null");
+        return;
+    }
+
+    console.log("Total de registros:", datos.length);
+
+    // Mostrar todos los registros
+    datos.forEach(function(registro, index) {
+        console.log(`\nRegistro #${index + 1}:`);
+
+        for (var propiedad in registro) {
+            if (registro.hasOwnProperty(propiedad)) {
+                var valor = registro[propiedad];
+                var tipo = typeof valor;
+                console.log(`  ${propiedad}: ${valor} (${tipo})`);
+            }
+        }
+    });
+
+    console.log("Vista de tabla:");
+    console.table(datos);
+
+    // Resumen de columnas
+    if (datos.length > 0) {
+        console.log("Resumen de columnas:");
+        var primerRegistro = datos[0];
+        var columnas = Object.keys(primerRegistro);
+
+        columnas.forEach(function(columna) {
+            var valores = datos.map(function(r) { return r[columna]; });
+            var valoresUnicos = [...new Set(valores)];
+
+            console.log("${columna}:");
+            console.log("- Tipo: ${typeof primerRegistro[columna]}");
+            console.log("- Valores únicos: ${valoresUnicos.length}");
+            console.log("- Ejemplo: ${primerRegistro[columna]}");
+        });
+    }
+
+    return datos;
+}
+
