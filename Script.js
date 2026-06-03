@@ -472,3 +472,38 @@ function DescargaArchivo() {
     }
 }
 
+function MostrarPDF() { 
+ var data = res.result[0].valorBinario;
+ if (data) {
+     const uint8Array = new Uint8Array(data);
+     let binary = '';
+     uint8Array.forEach(byte => {
+         binary += String.fromCharCode(byte);
+     });
+     const base64String = btoa(binary);
+     const embedElement = document.getElementById('PdfCSF');
+     embedElement.src = `data:application/pdf;base64,${base64String}`;
+    }
+};
+
+const convertPdfToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file);
+    });
+};
+
+$('#fileInput').on('change', async function (e) {
+    const file = e.target.files[0];
+    if (file) {
+        try {
+            const base64String = await convertPdfToBase64(file);
+            $('#PdfCSF2').attr('src', base64String);
+            console.log("PDF cargado correctamente");
+        } catch (error) {
+            console.error("Error al convertir:", error);
+        }
+    }
+});
