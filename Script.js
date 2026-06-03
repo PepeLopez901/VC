@@ -455,3 +455,20 @@ function InspeccionarDatosExcel(datos) {
     return datos;
 }
 
+function DescargaArchivo() { 
+        var data = res.result[0].valorBinario;
+    if (data) {
+        const uint8Array = new Uint8Array(data);
+        const blob = new Blob([uint8Array], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'NombreArchivo.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    }
+}
+

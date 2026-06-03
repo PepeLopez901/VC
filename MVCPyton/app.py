@@ -49,7 +49,7 @@ app.add_url_rule("/api/productos/<int:id>", "api_producto", controllers.api_prod
 # -------------------------------------------------------
 if __name__ == "__main__":
     print("=" * 50)
-    print("  Servidor MVC con Flask iniciado")
-    print("  Abre: http://127.0.0.1:5000")
+    print("Servidor MVC con Flask iniciado" * 2)
+    print("Abre: http://127.0.0.1:5000" * 2)
     print("=" * 50)
     app.run(debug=True)
